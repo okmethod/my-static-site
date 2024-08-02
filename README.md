@@ -1,4 +1,4 @@
-# mypages
+# my-static-site
 
 `docs` 配下の静的アセットを Github Pages で公開する
 
