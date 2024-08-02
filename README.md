@@ -1,6 +1,6 @@
 # my-static-site
 
-`docs` 配下の静的アセットを Github Pages で公開する
+`gh-pages` ブランチの静的アセットを Github Pages で公開する
 
 ## ローカルでの起動方法
 
@@ -16,8 +16,8 @@ http://localhost:5173/
 
 - 静的アセットデプロイ
 ```sh
-make dist
-make deploy
+(cd skeleton-app && npm run build)
+(cd skeleton-app && npm run deploy)
 ```
 
 - ブラウザでアクセス
