@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.postcss";
-  import { AppShell, AppBar } from "@skeletonlabs/skeleton";
+  import { AppBar } from "@skeletonlabs/skeleton";
   import { Toast, Modal, initializeStores } from "@skeletonlabs/skeleton";
   import Icon from "@iconify/svelte";
 
