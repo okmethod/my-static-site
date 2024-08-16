@@ -8,7 +8,7 @@
   </div>
 
   <!-- コンテンツ部 -->
-  <div class="cContentPartStyle !ml-4">
+  <div class="cContentPartStyle !m-4">
     <span>hoge fuga</span>
   </div>
 </div>
