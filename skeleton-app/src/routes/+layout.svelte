@@ -1,16 +1,17 @@
 <script lang="ts">
   import "../app.postcss";
-  import { AppBar } from "@skeletonlabs/skeleton";
-  import { Toast, Modal, initializeStores } from "@skeletonlabs/skeleton";
-  initializeStores();
-
-  // Floating UI for Popups
-  import { computePosition, autoUpdate, flip, shift, offset, arrow } from "@floating-ui/dom";
-  import { storePopup } from "@skeletonlabs/skeleton";
-  storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
   import { onMount } from "svelte";
+  import { Toast, Modal, initializeStores } from "@skeletonlabs/skeleton";
+  import { storePopup } from "@skeletonlabs/skeleton";
+  import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+  import { computePosition, autoUpdate, flip, shift, offset, arrow } from "@floating-ui/dom";
   import { applyTheme } from "$lib/stores/theme";
+  import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
+  import IconButton from "$lib/components/IconButton.svelte";
+  import { navigateTo } from "$lib/utils/navigation.client";
+
+  initializeStores();
+  storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
   let isLoaded = false;
   onMount(async () => {
@@ -21,7 +22,20 @@
     isLoaded = true;
   });
 
-  import { navigateTo } from "$lib/utils/navigation.client";
+  const modalStore = getModalStore();
+  function showThemeSwitchModal(): void {
+    const m: ModalSettings = {
+      type: "component",
+      component: {
+        ref: ThemeSwitchModal,
+        props: {},
+      },
+      backdropClasses: "fixed inset-0 !bg-gray-300/90",
+    };
+    modalStore.trigger(m);
+  }
+
+  const cHeaderButton = "!space-x-0 !py-1 !px-2";
 </script>
 
 <svelte:head>
@@ -33,14 +47,12 @@
 
 {#if isLoaded}
   <div class="flex flex-col h-screen">
-    <div class="border-b border-gray-400">
-      <AppBar class="!p-1 md:!p-2">
-        <div class="flex items-center h-full">
-          <a href="/" class="flex items-center" on:click|preventDefault={() => navigateTo("/")}>
-            <div class="text-sm md:text-lg">TOP</div>
-          </a>
-        </div>
-      </AppBar>
+    <div class="relative border-b border-gray-400 bg-gray-100 p-1">
+      <div class="flex items-center justify-between h-full">
+        <IconButton icon="mdi:home-outline" label="Home" cButton={cHeaderButton} onClick={() => navigateTo("/")} />
+        <div class="flex-grow"><!--spacer--></div>
+        <IconButton icon="mdi:menu" label="Theme" cButton={cHeaderButton} onClick={showThemeSwitchModal} />
+      </div>
     </div>
 
     <div class="w-screen mx-auto overflow-y-auto scrollbar-gutter-stable pb-16">
