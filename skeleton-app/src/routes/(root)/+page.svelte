@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { TransitionButtonConfig } from "$lib/utils/transitions";
+  import { isImageConfig, isIconConfig, type TransitionButtonConfig } from "$lib/utils/transitions";
   import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+  import Icon from "@iconify/svelte";
   import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
 
   export let data: {
@@ -28,17 +29,25 @@
   </div>
 
   <!-- コンテンツ部 -->
-  <div class="cContentPartStyle">
-    {#each data.buttonConfigs as config}
-      <div class="">
-        <button on:click|preventDefault={config.onClick} class="flex items-center">
-          {#if config.image}
-            <img src={config.image.src} alt={config.image.alt} class="w-6 h-6 mr-2" />
-          {/if}
-          <span class="hover:underline text-lg md:text-2xl">{config.label}</span>
-        </button>
-      </div>
-    {/each}
+  <div class="cContentPartStyle !space-y-10">
+    <div class="space-y-4">
+      {#each data.buttonConfigs as config}
+        <div class="">
+          <button on:click|preventDefault={config.onClick} class="flex items-center">
+            <div class="w-6 h-6 mr-2">
+              {#if config.symbol === null}
+                <!-- no symbol -->
+              {:else if isImageConfig(config.symbol)}
+                <img src={config.symbol.src} alt={config.symbol.alt} class="w-full h-full" />
+              {:else if isIconConfig(config.symbol)}
+                <Icon icon={config.symbol.icon} class="w-full h-full" />
+              {/if}
+            </div>
+            <span class="hover:underline text-lg md:text-2xl">{config.label}</span>
+          </button>
+        </div>
+      {/each}
+    </div>
 
     <button type="button" class="btn variant-filled" on:click={showThemeSwitchModal}>Switch Theme</button>
   </div>
