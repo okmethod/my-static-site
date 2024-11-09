@@ -46,13 +46,11 @@
       </AppBar>
     </div>
 
-    <button class="fixed bottom-4 right-4 bg-gray-800 text-white p-2 rounded" on:click={toggleTheme}>
-      Toggle Theme
-    </button>
-
     <div class="container mx-auto overflow-y-auto pb-16">
       <slot />
     </div>
+
+    <button type="button" class="btn variant-filled" on:click={toggleTheme}> Toggle Theme </button>
   </div>
 {:else}
   <div class="flex items-center justify-center h-screen bg-gray-100">
