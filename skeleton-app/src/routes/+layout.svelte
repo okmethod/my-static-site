@@ -10,8 +10,7 @@
   storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
   import { onMount } from "svelte";
-  import { applyTheme, setTheme } from "$lib/stores/theme";
-  import { navigateTo } from "$lib/utils/navigation.client";
+  import { applyTheme } from "$lib/stores/theme";
 
   let isLoaded = false;
   onMount(async () => {
@@ -22,9 +21,7 @@
     isLoaded = true;
   });
 
-  function toggleTheme() {
-    setTheme({ name: "sahara", dark: false });
-  }
+  import { navigateTo } from "$lib/utils/navigation.client";
 </script>
 
 <svelte:head>
@@ -49,8 +46,6 @@
     <div class="container mx-auto overflow-y-auto pb-16">
       <slot />
     </div>
-
-    <button type="button" class="btn variant-filled" on:click={toggleTheme}> Toggle Theme </button>
   </div>
 {:else}
   <div class="flex items-center justify-center h-screen bg-gray-100">

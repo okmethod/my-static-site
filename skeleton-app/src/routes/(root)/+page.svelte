@@ -1,9 +1,25 @@
 <script lang="ts">
   import type { ContentButtonProps } from "./+page";
+  import type { ModalSettings } from "@skeletonlabs/skeleton";
+  import { getModalStore } from "@skeletonlabs/skeleton";
+  import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
 
   export let data: {
     propsArray: Array<ContentButtonProps>;
   };
+
+  const modalStore = getModalStore();
+  function showThemeSwitchModal(): void {
+    const m: ModalSettings = {
+      type: "component",
+      component: {
+        ref: ThemeSwitchModal,
+        props: {},
+      },
+      backdropClasses: "fixed inset-0 !bg-gray-300/90",
+    };
+    modalStore.trigger(m);
+  }
 </script>
 
 <div class="cRouteBodyStyle">
@@ -21,5 +37,7 @@
         </button>
       </div>
     {/each}
+
+    <button type="button" class="btn variant-filled" on:click={showThemeSwitchModal}>Switch Theme</button>
   </div>
 </div>

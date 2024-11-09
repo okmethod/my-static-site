@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import { browser } from "$app/environment";
 
-const themeNames = [
+export const themeNames = [
   "skeleton",
   "wintry",
   "modern",
@@ -14,7 +14,7 @@ const themeNames = [
   "crimson",
 ] as const;
 
-type ThemeName = (typeof themeNames)[number];
+export type ThemeName = (typeof themeNames)[number];
 
 interface Theme {
   name: ThemeName;
@@ -29,8 +29,21 @@ const savedTheme =
 
 const themeStore = writable<Theme>(savedTheme);
 
-export function applyTheme() {
-  const theme = get(themeStore);
+export function getTheme(): Theme {
+  return get(themeStore);
+}
+
+export function setTheme(theme: Theme): void {
+  themeStore.set(theme);
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }
+
+  applyTheme();
+}
+
+export function applyTheme(): void {
+  const theme = getTheme();
   if (browser) {
     document.body.setAttribute("data-theme", theme.name);
 
@@ -41,13 +54,4 @@ export function applyTheme() {
       document.documentElement.classList.add(mode);
     }
   }
-}
-
-export function setTheme(theme: Theme) {
-  themeStore.set(theme);
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem("theme", JSON.stringify(theme));
-  }
-
-  applyTheme();
 }
