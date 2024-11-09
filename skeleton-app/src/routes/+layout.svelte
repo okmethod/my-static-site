@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <div class="w-screen mx-auto overflow-y-scroll scrollbar-gutter-stable ml-1 pb-24">
+    <div class="w-screen mx-auto overflow-y-scroll scrollbar-gutter-stable sm:ml-2 pb-24">
       <slot />
     </div>
   </div>
