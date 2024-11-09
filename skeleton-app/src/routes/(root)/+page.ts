@@ -1,43 +1,21 @@
-import { navigateTo } from "$lib/utils/navigation.client";
+import { generateButtonConfigs, type TransitionContent } from "$lib/utils/transitions";
 import { GITHUB_REPO_URL } from "$lib/constants/common";
 
-interface Content {
-  title: string;
-  action: "navigate" | "redirect";
-  route: string;
-}
-
-export interface ContentButtonProps {
-  title: string;
-  onClick: () => void;
-}
-
-const contents: Content[] = [
+const contentLinks: TransitionContent[] = [
   {
-    title: "sample page",
+    label: "Example route",
     action: "navigate",
-    route: "/example",
+    target: "/example",
   },
   {
-    title: "github repository",
+    label: "Github Repository",
     action: "redirect",
-    route: GITHUB_REPO_URL,
+    target: GITHUB_REPO_URL,
   },
 ];
 
 export async function load() {
-  const propsArray: ContentButtonProps[] = contents.map((content) => ({
-    title: content.title,
-    onClick: _getOnClick(content.action, content.route),
-  }));
+  const buttonConfigs = generateButtonConfigs(contentLinks);
 
-  function _getOnClick(action: string, route: string): () => void {
-    const actions: { [key: string]: () => void } = {
-      navigate: () => navigateTo(route),
-      redirect: () => window.open(route, "_blank"),
-    };
-    return actions[action] || (() => {});
-  }
-
-  return { propsArray };
+  return { buttonConfigs };
 }

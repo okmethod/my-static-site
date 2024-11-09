@@ -1,11 +1,10 @@
 <script lang="ts">
-  import type { ContentButtonProps } from "./+page";
-  import type { ModalSettings } from "@skeletonlabs/skeleton";
-  import { getModalStore } from "@skeletonlabs/skeleton";
+  import type { TransitionButtonConfig } from "$lib/utils/transitions";
+  import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
   import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
 
   export let data: {
-    propsArray: Array<ContentButtonProps>;
+    buttonConfigs: Array<TransitionButtonConfig>;
   };
 
   const modalStore = getModalStore();
@@ -30,10 +29,13 @@
 
   <!-- コンテンツ部 -->
   <div class="cContentPartStyle">
-    {#each data.propsArray as props}
+    {#each data.buttonConfigs as config}
       <div class="">
-        <button on:click|preventDefault={props.onClick} class="flex items-center">
-          <span class="hover:underline text-lg md:text-2xl">{props.title}</span>
+        <button on:click|preventDefault={config.onClick} class="flex items-center">
+          {#if config.image}
+            <img src={config.image.src} alt={config.image.alt} class="w-6 h-6 mr-2" />
+          {/if}
+          <span class="hover:underline text-lg md:text-2xl">{config.label}</span>
         </button>
       </div>
     {/each}
