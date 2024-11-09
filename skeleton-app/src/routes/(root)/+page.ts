@@ -11,7 +11,7 @@ const contentLinks: TransitionContent[] = [
   {
     label: "Github Repository",
     symbolSrc: { type: "icon", key: "mdi:source-repository" },
-    action: "redirect",
+    action: "redirectNewTab",
     target: GITHUB_REPO_URL,
   },
 ];
