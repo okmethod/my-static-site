@@ -27,6 +27,11 @@ export default {
   theme: {
     extend: {},
   },
+  extend: {
+    scrollbarGutter: {
+      stable: "stable",
+    },
+  },
   plugins: [
     forms,
     typography,

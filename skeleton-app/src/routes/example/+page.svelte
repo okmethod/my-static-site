@@ -9,6 +9,8 @@
 
   <!-- コンテンツ部 -->
   <div class="cContentPartStyle">
-    <span>hoge fuga</span>
+    {#each Array.from({ length: 100 }, (_, i) => i) as line}
+      <p>hoge {line}</p>
+    {/each}
   </div>
 </div>
