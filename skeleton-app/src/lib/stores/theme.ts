@@ -1,27 +1,32 @@
 import { writable, get } from "svelte/store";
 import { browser } from "$app/environment";
 
-export const themeNames = [
-  "skeleton",
-  "wintry",
-  "modern",
-  "rocket",
-  "seafoam",
-  "vintage",
-  "sahara",
-  "hamlindigo",
-  "gold-nouveau",
-  "crimson",
+interface ThemeLabel {
+  name: string;
+  emoji: string;
+}
+
+export const themeLabels: Array<ThemeLabel> = [
+  { name: "skeleton", emoji: "💀" },
+  { name: "wintry", emoji: "🌨️" },
+  { name: "modern", emoji: "🤖" },
+  { name: "rocket", emoji: "🚀" },
+  { name: "seafoam", emoji: "🧜‍♀️" },
+  { name: "vintage", emoji: "📺" },
+  { name: "sahara", emoji: "🏜️" },
+  { name: "hamlindigo", emoji: "👔" },
+  { name: "gold-nouveau", emoji: "💫" },
+  { name: "crimson", emoji: "⭕" },
 ] as const;
 
-export type ThemeName = (typeof themeNames)[number];
+export type ThemeName = (typeof themeLabels)[number]["name"];
 
 interface Theme {
   name: ThemeName;
   dark: boolean;
 }
 
-const defaultTheme: Theme = { name: themeNames[0], dark: false };
+const defaultTheme: Theme = { name: themeLabels[0]["name"], dark: false };
 const savedTheme =
   typeof localStorage !== "undefined"
     ? JSON.parse(localStorage.getItem("theme") || JSON.stringify(defaultTheme))
