@@ -46,9 +46,9 @@
 <Toast position="tr" rounded="rounded-lg" />
 
 {#if isLoaded}
-  <div class="flex flex-col h-screen">
+  <div class="h-screen flex flex-col">
     <div class="relative border-b border-gray-400 bg-gray-100 p-1">
-      <div class="flex items-center justify-between h-full">
+      <div class="h-full flex items-center justify-between">
         <IconButton icon="mdi:home-outline" label="Home" cButton={cHeaderButton} onClick={() => navigateTo("/")} />
         <div class="flex-grow"><!--spacer--></div>
         <IconButton icon="mdi:menu" label="Theme" cButton={cHeaderButton} onClick={showThemeSwitchModal} />
@@ -60,7 +60,7 @@
     </div>
   </div>
 {:else}
-  <div class="flex items-center justify-center h-screen bg-gray-100">
+  <div class="h-screen flex items-center justify-center bg-gray-100">
     <div class="font-mono text-black text-2xl">Now Loading...</div>
   </div>
 {/if}
