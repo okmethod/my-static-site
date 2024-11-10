@@ -1,4 +1,5 @@
-import { generateButtonConfigs, type TransitionContent } from "$lib/utils/transitions";
+import type { TransitionContent, TransitionButtonConfig } from "$lib/utils/transitions";
+import { generateButtonConfigs } from "$lib/utils/transitions";
 import { GITHUB_REPO_URL } from "$lib/constants/common";
 
 const contentLinks: TransitionContent[] = [
@@ -16,7 +17,7 @@ const contentLinks: TransitionContent[] = [
   },
 ];
 
-export async function load() {
+export async function load(): Promise<{ buttonConfigs: TransitionButtonConfig[] }> {
   const buttonConfigs = generateButtonConfigs(contentLinks);
 
   return { buttonConfigs };
