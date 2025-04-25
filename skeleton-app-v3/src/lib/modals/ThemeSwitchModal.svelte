@@ -1,40 +1,22 @@
 <script lang="ts">
   import { Modal } from "@skeletonlabs/skeleton-svelte";
+  import { Switch } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
+  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/stores/theme";
 
-  let openState = $state(false); // モーダルの開閉状態
-  let theme = "hamlindigo"; // デフォルトテーマ
+  let openState = $state(false);
+  let currentTheme = $state(getTheme());
 
-  // テーマ一覧
-  const themes = [
-    "catppuccin",
-    "cerberus",
-    "concord",
-    "crimson",
-    "fennec",
-    "hamlindigo",
-    "legacy",
-    "mint",
-    "modern",
-    "mona",
-    "nosh",
-    "nouveau",
-    "pine",
-    "reign",
-    "rocket",
-    "rose",
-    "sahara",
-    "seafoam",
-    "terminus",
-    "vintage",
-    "vox",
-    "wintry",
-  ];
+  function handleThemeChange(selectedTheme: string) {
+    setTheme({ name: selectedTheme, dark: currentTheme.dark });
+    currentTheme = getTheme();
+    applyTheme();
+  }
 
-  // テーマを適用する関数
-  function applyTheme(selectedTheme: string) {
-    theme = selectedTheme;
-    document.body.setAttribute("data-theme", theme);
+  function toggleDarkMode() {
+    setTheme({ name: currentTheme.name, dark: !currentTheme.dark });
+    currentTheme = getTheme();
+    applyTheme();
   }
 
   function modalClose() {
@@ -55,21 +37,36 @@
   {/snippet}
   {#snippet content()}
     <header class="flex justify-between">
-      <h2 class="h2">Switch Theme</h2>
+      <h2 class="text-2xl sm:text-3xl w-64 sm:w-80">Switch Theme</h2>
+      <Switch
+        name="toggle-dark-mode"
+        controlClasses="h-8 w-12"
+        controlActive="bg-surface-200"
+        checked={currentTheme.dark}
+        onCheckedChange={() => toggleDarkMode()}
+      >
+        {#snippet inactiveChild()}<Icon icon="mdi:weather-night" class="size-6" />{/snippet}
+        {#snippet activeChild()}<Icon icon="mdi:weather-sunny" class="size-6" />{/snippet}
+      </Switch>
+      <button type="button" class="btn preset-tonal rounded-full" onclick={modalClose}>
+        <Icon icon="mdi:close" class="size-4" />
+      </button>
     </header>
     <div class="flex flex-col space-y-4">
-      <ul class="grid grid-cols-4 gap-4">
-        {#each themes as t}
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {#each themeLabels as theme}
           <li>
-            <button onclick={() => applyTheme(t)} class="w-full text-left p-2 rounded hover:bg-gray-100">
-              {t}
+            <button
+              onclick={() => handleThemeChange(theme.name)}
+              class="btn preset-filled-primary-500 dark:preset-tonal-primary w-full"
+              aria-pressed={currentTheme.name === theme.name}
+            >
+              {theme.emoji}
+              {theme.name}
             </button>
           </li>
         {/each}
       </ul>
     </div>
-    <footer class="flex justify-end gap-4">
-      <button type="button" class="btn preset-tonal" onclick={modalClose}>Done</button>
-    </footer>
   {/snippet}
 </Modal>
