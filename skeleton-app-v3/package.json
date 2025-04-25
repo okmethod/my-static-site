@@ -42,6 +42,8 @@
     "cookie": "^1.0.2"
   },
   "dependencies": {
+    "@skeletonlabs/skeleton": "^3.1.2",
+    "@skeletonlabs/skeleton-svelte": "^1.2.1",
     "@types/node": "^22.15.2",
     "gh-pages": "^6.3.0"
   }
