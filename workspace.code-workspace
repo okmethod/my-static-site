@@ -6,6 +6,9 @@
 		{
 			"path": "skeleton-app"
 		},
+		{
+			"path": "skeleton-app-v3"
+		},
 	],
 	"settings": {}
 }
