@@ -11,7 +11,9 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "lint": "prettier --check . && eslint .",
+    "push": "gh-pages -d build",
+    "deploy": "npm run build && npm run push"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
@@ -38,5 +40,9 @@
   },
   "overrides": {
     "cookie": "^1.0.2"
+  },
+  "dependencies": {
+    "@types/node": "^22.15.2",
+    "gh-pages": "^6.3.0"
   }
 }
