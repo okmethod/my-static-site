@@ -1,4 +1,4 @@
-import { purgeCss } from "vite-plugin-tailwind-purgecss";
+import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import fs from "fs";
@@ -28,20 +28,12 @@ const content404 = ((base: string) => `
 `)(githubRepoName);
 
 export default defineConfig({
-  // Github Pagesで公開する場合は、base にリポジトリ名を指定
+  // Github Pagesで公開する場合は、base にリポジトリ名を指定する
   base: `/${githubRepoName}/`,
   publicDir: "static",
-  build: {
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        pure_funcs: ["console.debug"], // console.debug を無効化
-      },
-    },
-  },
   plugins: [
+    tailwindcss(),
     sveltekit(),
-    purgeCss(),
     {
       name: "generate-404",
       closeBundle() {

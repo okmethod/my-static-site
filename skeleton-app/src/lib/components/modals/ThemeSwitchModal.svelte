@@ -1,62 +1,72 @@
 <script lang="ts">
-  import { getModalStore } from "@skeletonlabs/skeleton";
-  import { SlideToggle } from "@skeletonlabs/skeleton";
-  import type { ThemeName } from "$lib/stores/theme";
-  import { themeLabels, getTheme, setTheme } from "$lib/stores/theme";
+  import { Modal } from "@skeletonlabs/skeleton-svelte";
+  import { Switch } from "@skeletonlabs/skeleton-svelte";
+  import Icon from "@iconify/svelte";
+  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/stores/theme";
 
-  export let parent;
+  let openState = $state(false);
+  let currentTheme = $state(getTheme());
 
-  let currentTheme = getTheme().name;
-  let currentDark = getTheme().dark;
-
-  function setCurrentTheme() {
-    setTheme({ name: currentTheme, dark: currentDark });
+  function handleThemeChange(selectedTheme: string) {
+    setTheme({ name: selectedTheme, dark: currentTheme.dark });
+    currentTheme = getTheme();
+    applyTheme();
   }
 
-  function handleThemeSwitch(themeName: ThemeName) {
-    currentTheme = themeName;
-    setCurrentTheme();
+  function toggleDarkMode() {
+    setTheme({ name: currentTheme.name, dark: !currentTheme.dark });
+    currentTheme = getTheme();
+    applyTheme();
   }
 
-  const modalStore = getModalStore();
-
-  function closeModal() {
-    modalStore.close();
+  function modalClose() {
+    openState = false;
   }
 </script>
 
-{#if $modalStore[0]}
-  <div class="p-2 md:p-4 bg-surface-50-900-token rounded shadow-2xl" data-parent={parent}>
-    <div class="relative pt-10">
-      <div class="flex flex-col items-center space-y-2">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {#each themeLabels as themeLabel}
-            <button
-              type="button"
-              class="btn {currentTheme === themeLabel.name ? 'variant-filled-surface' : 'variant-filled'}"
-              on:click={() => {
-                handleThemeSwitch(themeLabel.name);
-              }}
-            >
-              <div class="h-6 min-w-40 flex items-center justify-start">
-                <span class="w-8">{themeLabel.emoji}</span>
-                <span class="">{themeLabel.name}</span>
-              </div>
-            </button>
-          {/each}
-        </div>
-        <SlideToggle name="slide" bind:checked={currentDark} on:change={setCurrentTheme} class="px-2 py-1"
-          >{currentDark ? "Dark Mode" : "Light Mode"}</SlideToggle
-        >
-      </div>
-      <p class="text-xl absolute top-0 left-1/2 transform -translate-x-1/2 z-10">Theme Switch</p>
-      <button
-        type="button"
-        class="btn-icon btn-icon-sm !bg-transparent absolute top-0 right-0 z-10"
-        on:click={closeModal}
+<Modal
+  open={openState}
+  onOpenChange={(e) => (openState = e.open)}
+  triggerBase="btn preset-filled"
+  contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
+  backdropClasses="backdrop-blur-sm"
+>
+  {#snippet trigger()}
+    <Icon icon="mdi:shimmer" class="size-4" />
+    <span>Theme</span>
+  {/snippet}
+  {#snippet content()}
+    <header class="flex justify-between">
+      <h2 class="text-2xl sm:text-3xl w-64 sm:w-80">Switch Theme</h2>
+      <Switch
+        name="toggle-dark-mode"
+        controlClasses="h-8 w-12"
+        controlActive="bg-surface-200"
+        checked={currentTheme.dark}
+        onCheckedChange={() => toggleDarkMode()}
       >
-        ✕
+        {#snippet inactiveChild()}<Icon icon="mdi:weather-night" class="size-6" />{/snippet}
+        {#snippet activeChild()}<Icon icon="mdi:weather-sunny" class="size-6" />{/snippet}
+      </Switch>
+      <button type="button" class="btn preset-tonal rounded-full" onclick={modalClose}>
+        <Icon icon="mdi:close" class="size-4" />
       </button>
+    </header>
+    <div class="flex flex-col space-y-4">
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {#each themeLabels as theme}
+          <li>
+            <button
+              onclick={() => handleThemeChange(theme.name)}
+              class="btn preset-filled-primary-500 dark:preset-tonal-primary w-full flex items-center space-x-1"
+              aria-pressed={currentTheme.name === theme.name}
+            >
+              <span class="w-3 text-center">{theme.emoji}</span>
+              <span class="flex-1 text-left">{theme.name}</span>
+            </button>
+          </li>
+        {/each}
+      </ul>
     </div>
-  </div>
-{/if}
+  {/snippet}
+</Modal>

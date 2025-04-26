@@ -1,4 +1,4 @@
-import { navigateTo } from "$lib/utils/navigation.client";
+import { navigateTo } from "$lib/utils/navigation";
 
 type TransitionAction = "navigate" | "redirect" | "redirectNewTab";
 

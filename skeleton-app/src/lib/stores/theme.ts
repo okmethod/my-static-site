@@ -7,18 +7,29 @@ interface ThemeLabel {
 }
 
 export const themeLabels: Array<ThemeLabel> = [
-  { name: "skeleton", emoji: "💀" },
-  { name: "wintry", emoji: "🌨️" },
-  { name: "modern", emoji: "🤖" },
-  { name: "rocket", emoji: "🚀" },
-  { name: "seafoam", emoji: "🧜‍♀️" },
-  { name: "vintage", emoji: "📺" },
-  { name: "sahara", emoji: "🏜️" },
+  { name: "catppuccin", emoji: "🐈" },
+  { name: "cerberus", emoji: "🐺" },
+  { name: "concord", emoji: "🤖" },
+  { name: "crimson", emoji: "🔴" },
+  { name: "fennec", emoji: "🦊" },
   { name: "hamlindigo", emoji: "👔" },
-  { name: "gold-nouveau", emoji: "💫" },
-  { name: "crimson", emoji: "⭕" },
+  { name: "legacy", emoji: "💀" },
+  { name: "mint", emoji: "🍃" },
+  { name: "modern", emoji: "🌸" },
+  { name: "mona", emoji: "🐙" },
+  { name: "nosh", emoji: "🥙" },
+  { name: "nouveau", emoji: "👑" },
+  { name: "pine", emoji: "🌲" },
+  { name: "reign", emoji: "📒" },
+  { name: "rocket", emoji: "🚀" },
+  { name: "rose", emoji: "🌷" },
+  { name: "sahara", emoji: "🏜️" },
+  { name: "seafoam", emoji: "🧜‍♀️" },
+  { name: "terminus", emoji: "🌑" },
+  { name: "vintage", emoji: "📺" },
+  { name: "vox", emoji: "👾" },
+  { name: "wintry", emoji: "🌨️" },
   { name: "custom", emoji: "🎨" },
-  { name: "none", emoji: "📝" },
 ] as const;
 
 export type ThemeName = (typeof themeLabels)[number]["name"];
@@ -34,7 +45,7 @@ const savedTheme =
     ? JSON.parse(localStorage.getItem("theme") || JSON.stringify(defaultTheme))
     : defaultTheme;
 
-const themeStore = writable<Theme>(savedTheme);
+export const themeStore = writable<Theme>(savedTheme);
 
 export function getTheme(): Theme {
   return get(themeStore);
@@ -52,13 +63,7 @@ export function setTheme(theme: Theme): void {
 export function applyTheme(): void {
   const theme = getTheme();
   if (browser) {
-    document.body.setAttribute("data-theme", theme.name);
-
-    const currentMode = document.documentElement.classList.contains("dark") ? "dark" : "light";
-    const mode = theme.dark ? "dark" : "light";
-    if (currentMode !== mode) {
-      document.documentElement.classList.remove(currentMode);
-      document.documentElement.classList.add(mode);
-    }
+    document.documentElement.setAttribute("data-theme", theme.name);
+    document.documentElement.setAttribute("data-mode", theme.dark ? "dark" : "light");
   }
 }
