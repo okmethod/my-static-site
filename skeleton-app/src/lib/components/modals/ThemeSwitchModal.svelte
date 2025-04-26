@@ -58,11 +58,11 @@
           <li>
             <button
               onclick={() => handleThemeChange(theme.name)}
-              class="btn preset-filled-primary-500 dark:preset-tonal-primary w-full"
+              class="btn preset-filled-primary-500 dark:preset-tonal-primary w-full flex items-center space-x-1"
               aria-pressed={currentTheme.name === theme.name}
             >
-              {theme.emoji}
-              {theme.name}
+              <span class="w-3 text-center">{theme.emoji}</span>
+              <span class="flex-1 text-left">{theme.name}</span>
             </button>
           </li>
         {/each}
