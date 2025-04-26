@@ -1,9 +1,11 @@
 <script lang="ts">
   import "../app.css";
   import { onMount } from "svelte";
+  import { Toaster } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import ThemeSwitchModal from "$lib/modals/ThemeSwitchModal.svelte";
   import { applyTheme } from "$lib/stores/theme";
+  import { toaster } from "$lib/utils/toaster";
   import { navigateTo } from "$lib/utils/navigation";
 
   let { children } = $props();
@@ -21,6 +23,8 @@
 <svelte:head>
   <title>My Static WebSite</title>
 </svelte:head>
+
+<Toaster {toaster} rounded="rounded-lg" />
 
 {#if isLoaded}
   <header class="p-4 shadow-md bg-surface-100-900">
