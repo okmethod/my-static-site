@@ -29,7 +29,7 @@
 {#if isLoaded}
   <header class="p-4 shadow-md bg-surface-100-900">
     <div class="flex justify-between items-center">
-      <h1 class="h5">My Static WebSite</h1>
+      <a class="h5" href="./">My Static WebSite</a>
       <nav>
         <ul class="flex space-x-4">
           <li><ThemeSwitchModal /></li>
