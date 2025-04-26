@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
 
 @import "@skeletonlabs/skeleton";
 @import "@skeletonlabs/skeleton/optional/presets";
@@ -27,6 +27,7 @@
 @import "@skeletonlabs/skeleton/themes/vintage";
 @import "@skeletonlabs/skeleton/themes/vox";
 @import "@skeletonlabs/skeleton/themes/wintry";
+@import "./custom-theme.css";
 
 @source "../node_modules/@skeletonlabs/skeleton-svelte/dist";
 

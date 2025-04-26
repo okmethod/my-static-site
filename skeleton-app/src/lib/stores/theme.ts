@@ -29,6 +29,7 @@ export const themeLabels: Array<ThemeLabel> = [
   { name: "vintage", emoji: "📺" },
   { name: "vox", emoji: "👾" },
   { name: "wintry", emoji: "🌨️" },
+  { name: "custom", emoji: "🎨" },
 ] as const;
 
 export type ThemeName = (typeof themeLabels)[number]["name"];
