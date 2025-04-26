@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { Toaster } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import ThemeSwitchModal from "$lib/modals/ThemeSwitchModal.svelte";
+  import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
   import { applyTheme } from "$lib/stores/theme";
   import { toaster } from "$lib/utils/toaster";
   import { navigateTo } from "$lib/utils/navigation";
