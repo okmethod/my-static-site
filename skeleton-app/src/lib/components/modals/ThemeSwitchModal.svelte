@@ -45,8 +45,8 @@
         checked={currentTheme.dark}
         onCheckedChange={() => toggleDarkMode()}
       >
-        {#snippet inactiveChild()}<Icon icon="mdi:weather-night" class="size-6" />{/snippet}
-        {#snippet activeChild()}<Icon icon="mdi:weather-sunny" class="size-6" />{/snippet}
+        {#snippet inactiveChild()}<Icon icon="mdi:weather-sunny" class="size-6" />{/snippet}
+        {#snippet activeChild()}<Icon icon="mdi:weather-night" class="size-6" />{/snippet}
       </Switch>
       <button type="button" class="btn preset-tonal rounded-full" onclick={modalClose}>
         <Icon icon="mdi:close" class="size-4" />
