@@ -3,14 +3,14 @@ export const waveTypes: OscillatorType[] = ["sine", "square", "sawtooth", "trian
 export const labelTypes = ["none", "ja", "en"] as const;
 export type LabelType = (typeof labelTypes)[number];
 
-interface Note {
+interface MusicalNote {
   name: { ja: string; en: string };
   octave: number;
   frequency: number;
   isSharp: boolean;
 }
 
-export const baseNotes: Note[] = [
+const baseMusicalNotes: MusicalNote[] = [
   { name: { ja: "ド", en: "C" }, octave: 4, frequency: 261.63, isSharp: false },
   { name: { ja: "ド#", en: "C#" }, octave: 4, frequency: 277.18, isSharp: true },
   { name: { ja: "レ", en: "D" }, octave: 4, frequency: 293.66, isSharp: false },
@@ -24,19 +24,33 @@ export const baseNotes: Note[] = [
   { name: { ja: "ラ#", en: "A#" }, octave: 4, frequency: 466.16, isSharp: true },
   { name: { ja: "シ", en: "B" }, octave: 4, frequency: 493.88, isSharp: false },
   { name: { ja: "ド", en: "C" }, octave: 5, frequency: 523.25, isSharp: false },
-];
+] as const;
 
-export function generateFrequencies(octaveShift: number = 0): Note[] {
-  const multiplier = Math.pow(2, octaveShift); // オクターブ変更の倍率
-  return baseNotes.map(({ name, octave: baseOctave, frequency, isSharp }) => ({
+type JaName = (typeof baseMusicalNotes)[number]["name"]["ja"];
+type EnName = (typeof baseMusicalNotes)[number]["name"]["en"];
+
+function shiftOctaveFrequency(baseFrequency: number, octaveShift: number): number {
+  return baseFrequency * Math.pow(2, octaveShift); // オクターブごとに周波数は 2倍 or 1/2倍 になる
+}
+
+export function getFrequency(name: JaName | EnName, octave: number): number {
+  const baseNote = baseMusicalNotes
+    .filter((note) => note.octave === 4)
+    .find((note) => name === note.name.ja || name === note.name.en);
+  if (!baseNote) throw new Error(`Note not found: ${name}`);
+
+  const octaveShift = octave - baseNote.octave;
+  return shiftOctaveFrequency(baseNote.frequency, octaveShift);
+}
+
+export function getNotesWithOctaveShift(octaveShift: number): MusicalNote[] {
+  return baseMusicalNotes.map(({ name, octave: baseOctave, frequency, isSharp }) => ({
     name,
     octave: baseOctave + octaveShift,
-    frequency: frequency * multiplier,
+    frequency: shiftOctaveFrequency(frequency, octaveShift),
     isSharp: isSharp,
   }));
 }
-
-export const frequencies = generateFrequencies(0); // C4 オクターブ
 
 export function startBeep(
   audioContextProvider: () => AudioContext | null,

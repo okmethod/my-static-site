@@ -1,17 +1,17 @@
 <script lang="ts">
   import BeepButton from "$lib/components/buttons/BeepButton.svelte";
-  import { generateFrequencies, type LabelType } from "$lib/utils/beep";
+  import { getNotesWithOctaveShift, type LabelType } from "$lib/utils/beep";
 
   export let waveType: OscillatorType = "triangle";
   export let octaveShift: number = 0;
   export let showLabel: LabelType = "none";
   export let includeRightC: boolean = true;
 
-  $: frequencies = generateFrequencies(octaveShift);
+  $: musicalNotes = getNotesWithOctaveShift(octaveShift);
   $: whiteKeys = includeRightC
-    ? frequencies.filter((note) => !note.isSharp)
-    : frequencies.filter((note) => !note.isSharp).slice(0, -1); // 右端の「ド」を除外
-  $: blackKeys = frequencies.filter((note) => note.isSharp);
+    ? musicalNotes.filter((note) => !note.isSharp)
+    : musicalNotes.filter((note) => !note.isSharp).slice(0, -1); // 右端の「ド」を除外
+  $: blackKeys = musicalNotes.filter((note) => note.isSharp);
 
   const blackKeyPositions = [0, 1, null, 2, 3, 4, null, null];
   const cGridCols = includeRightC ? "grid-cols-8" : "grid-cols-7";
