@@ -54,7 +54,7 @@
     </header>
     <div class="flex flex-col space-y-4">
       <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {#each themeLabels as theme}
+        {#each themeLabels as theme, key (key)}
           <li>
             <button
               onclick={() => handleThemeChange(theme.name)}

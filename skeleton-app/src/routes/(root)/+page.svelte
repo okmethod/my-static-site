@@ -11,7 +11,7 @@
   <h2 class="h2">Welcome to My Static Site !</h2>
 
   <div class="space-y-4 my-4">
-    {#each data.buttonConfigs as config}
+    {#each data.buttonConfigs as config, key (key)}
       <div class="">
         <button on:click|preventDefault={config.onClick} class="flex items-center space-x-2">
           <div class="w-6 h-6">
