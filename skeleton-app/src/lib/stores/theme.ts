@@ -40,7 +40,7 @@ interface Theme {
 }
 
 const defaultTheme: Theme = { name: themeLabels[0]["name"], dark: false };
-const savedTheme =
+const savedTheme: Theme =
   typeof localStorage !== "undefined"
     ? JSON.parse(localStorage.getItem("theme") || JSON.stringify(defaultTheme))
     : defaultTheme;
