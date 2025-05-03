@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import { audioContextProvider } from "$lib/stores/audio";
   import { startBeep } from "$lib/utils/beep";
 
   export let frequency: number;
@@ -10,7 +11,6 @@
 
   let stopBeep: (() => void) | null = null;
 
-  const audioContextProvider = () => new window.AudioContext();
   function handleStartBeep(event: Event) {
     event.preventDefault();
     stopBeep = startBeep(audioContextProvider, waveType, frequency);

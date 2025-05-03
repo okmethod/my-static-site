@@ -4,6 +4,7 @@
   import { Toaster } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
+  import AudioToggle from "$lib/components/buttons/AudioToggle.svelte";
   import { applyTheme } from "$lib/stores/theme";
   import { toaster } from "$lib/utils/toaster";
   import { navigateTo } from "$lib/utils/navigation";
@@ -31,8 +32,13 @@
     <div class="flex justify-between items-center">
       <a class="h5" href="./">My Static WebSite</a>
       <nav>
-        <ul class="flex space-x-4">
-          <li><ThemeSwitchModal /></li>
+        <ul class="flex space-x-4 items-center justify-center">
+          <li>
+            <AudioToggle />
+          </li>
+          <li>
+            <ThemeSwitchModal />
+          </li>
           <li>
             <button type="button" class="btn preset-filled" onclick={() => navigateTo("/")}>
               <Icon icon="mdi:home" class="size-4" />

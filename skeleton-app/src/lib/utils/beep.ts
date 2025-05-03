@@ -39,11 +39,13 @@ export function generateFrequencies(octaveShift: number = 0): Note[] {
 export const frequencies = generateFrequencies(0); // C4 オクターブ
 
 export function startBeep(
-  audioContextProvider: () => AudioContext,
+  audioContextProvider: () => AudioContext | null,
   waveType: OscillatorType,
   frequency: number,
 ): () => void {
   const audioCtx = audioContextProvider();
+  if (!audioCtx) return () => {};
+
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
 
@@ -69,7 +71,7 @@ export function startBeep(
 }
 
 export function playBeep(
-  audioContextProvider: () => AudioContext,
+  audioContextProvider: () => AudioContext | null,
   waveType: OscillatorType,
   frequency: number,
   duration: number = 0.2,
