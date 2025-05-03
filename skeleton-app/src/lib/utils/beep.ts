@@ -42,7 +42,7 @@ export function startBeep(
   audioContextProvider: () => AudioContext,
   waveType: OscillatorType,
   frequency: number,
-): AudioContext {
+): () => void {
   const audioCtx = audioContextProvider();
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
@@ -56,11 +56,16 @@ export function startBeep(
 
   oscillator.start();
 
-  return audioCtx;
-}
+  function _stopBeep(): void {
+    oscillator.stop();
+    oscillator.disconnect();
+    gainNode.disconnect();
+  }
 
-export function stopBeep(audioCtx: AudioContext) {
-  audioCtx.close();
+  // stopBeep をクロージャとして返す
+  return () => {
+    _stopBeep();
+  };
 }
 
 export function playBeep(
@@ -69,6 +74,6 @@ export function playBeep(
   frequency: number,
   duration: number = 0.2,
 ) {
-  const audioCtx = startBeep(audioContextProvider, waveType, frequency);
-  setTimeout(() => stopBeep(audioCtx), duration * 1000);
+  const stopBeep = startBeep(audioContextProvider, waveType, frequency);
+  setTimeout(() => stopBeep(), duration * 1000);
 }

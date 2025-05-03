@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { startBeep, stopBeep } from "$lib/utils/beep";
+  import { startBeep } from "$lib/utils/beep";
 
   export let frequency: number;
   export let waveType: OscillatorType;
@@ -8,20 +8,18 @@
   export let iconName: string | undefined = undefined;
   export let className: string | undefined = undefined;
 
-  let audioCtx: AudioContext | null = null;
+  let stopBeep: (() => void) | null = null;
+
   const audioContextProvider = () => new window.AudioContext();
   function handleStartBeep(event: Event) {
     event.preventDefault();
-    if (!audioCtx) {
-      audioCtx = startBeep(audioContextProvider, waveType, frequency);
-    }
+    stopBeep = startBeep(audioContextProvider, waveType, frequency);
   }
 
   function handleStopBeep(event: Event) {
     event.preventDefault();
-    if (audioCtx) {
-      stopBeep(audioCtx);
-      audioCtx = null;
+    if (stopBeep !== null) {
+      stopBeep();
     }
   }
 </script>
