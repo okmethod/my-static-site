@@ -28,7 +28,7 @@
   open={openState}
   onOpenChange={(e) => (openState = e.open)}
   triggerBase="btn preset-filled"
-  contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
+  contentBase="card bg-surface-100-900 p-4 mx-auto space-y-4 shadow-xl max-w-80 sm:max-w-screen-sm"
   backdropClasses="backdrop-blur-sm"
 >
   {#snippet trigger()}
@@ -53,16 +53,20 @@
       </button>
     </header>
     <div class="flex flex-col space-y-4">
-      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <ul class="grid grid-cols-4 gap-4">
         {#each themeLabels as theme, key (key)}
           <li>
             <button
               onclick={() => handleThemeChange(theme.name)}
-              class="btn preset-filled-primary-500 dark:preset-tonal-primary w-full flex items-center space-x-1"
+              class={`btn w-full flex items-center space-x-1 ${
+                currentTheme.name === theme.name
+                  ? "preset-outlined-primary-500"
+                  : "preset-filled-primary-500 dark:preset-tonal-primary"
+              }`}
               aria-pressed={currentTheme.name === theme.name}
             >
               <span class="w-3 text-center">{theme.emoji}</span>
-              <span class="flex-1 text-left">{theme.name}</span>
+              <span class="flex-1 text-left hidden sm:inline">{theme.name}</span>
             </button>
           </li>
         {/each}

@@ -7,7 +7,6 @@
   import AudioToggle from "$lib/components/buttons/AudioToggle.svelte";
   import { applyTheme } from "$lib/stores/theme";
   import { toaster } from "$lib/utils/toaster";
-  import { navigateTo } from "$lib/utils/navigation";
 
   let { children } = $props();
 
@@ -28,9 +27,13 @@
 <Toaster {toaster} rounded="rounded-lg" />
 
 {#if isLoaded}
-  <header class="p-4 shadow-md bg-surface-100-900">
+  <header class="p-2 sm:p-4 shadow-md bg-surface-100-900">
     <div class="flex justify-between items-center">
-      <a class="h5" href="./">My Static WebSite</a>
+      <a class="h5 flex items-center" href="./">
+        <span class="hidden sm:inline">My Static WebSite</span>
+        <Icon icon="mdi:home" class="size-6 sm:hidden" />
+      </a>
+
       <nav>
         <ul class="flex space-x-4 items-center justify-center">
           <li>
@@ -38,12 +41,6 @@
           </li>
           <li>
             <ThemeSwitchModal />
-          </li>
-          <li>
-            <button type="button" class="btn preset-filled" onclick={() => navigateTo("/")}>
-              <Icon icon="mdi:home" class="size-4" />
-              <span>Home</span>
-            </button>
           </li>
         </ul>
       </nav>
