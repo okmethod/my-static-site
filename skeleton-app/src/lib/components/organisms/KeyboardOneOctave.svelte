@@ -1,6 +1,7 @@
 <script lang="ts">
   import BeepButton from "$lib/components/buttons/BeepButton.svelte";
-  import { getNotesWithOctaveShift, type LabelType } from "$lib/utils/beep";
+  import type { LabelType } from "$lib/utils/beep";
+  import { getNotesWithOctaveShift } from "$lib/utils/musicalNote";
 
   export let waveType: OscillatorType = "triangle";
   export let octaveShift: number = 0;
