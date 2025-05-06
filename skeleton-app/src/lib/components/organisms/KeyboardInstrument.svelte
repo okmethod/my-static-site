@@ -12,7 +12,7 @@
   let selectedLabelType: LabelType = "none";
 </script>
 
-<div class="flex flex-col items-center bg-primary-200 dark:bg-primary-800 rounded-lg space-y-4 p-4">
+<div class="flex flex-col items-center bg-primary-200 dark:bg-primary-800 rounded-lg shadow-lg space-y-4 p-4">
   <div class="flex space-x-4">
     <div class="flex items-center justify-center">
       <Segment
