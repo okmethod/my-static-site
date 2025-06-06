@@ -7,9 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.routes import heartbeat
 from src.settings import get_settings
 
-settings = get_settings()
 fileConfig("src/logging.ini", disable_existing_loggers=False)
 root_logger = getLogger()
+
+settings = get_settings()
 
 app = FastAPI(
     title=settings.app_name,
