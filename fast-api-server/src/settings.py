@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     app_name: str = "Sample API"
     app_version: str = "0.1.0"
 
-    allowed_origins: list[str] = [] # Set allowed origins as needed
+    allowed_origins: list[str] = []  # Set allowed origins as needed
 
     google_cloud_project: str | None = google_cloud_project
     default_region: str | None = default_region

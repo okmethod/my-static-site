@@ -14,5 +14,15 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy>=1.16.0",
+    "poethepoet>=0.34.0",
     "ruff>=0.11.13",
 ]
+
+[tool.poe.tasks]
+ruff-format = "ruff format ."
+ruff-check = "ruff check ."
+ruff-fix = "ruff check . --fix"
+mypy = "mypy ."
+
+lint = ["ruff-format", "ruff-check", "mypy"]
+fix = ["ruff-format", "ruff-fix"]
