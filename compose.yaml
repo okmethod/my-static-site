@@ -6,6 +6,8 @@ services:
     ports:
       - 5173:5173
     working_dir: /app
+    environment:
+      VITE_API_BASE_URL: "http://fast-api-server:8000"
     volumes:
       - ./skeleton-app:/app
       - skeleton-app-node-modules:/app/node_modules
