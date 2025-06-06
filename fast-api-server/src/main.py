@@ -1,4 +1,4 @@
-from logging import DEBUG, getLogger
+from logging import getLogger
 from logging.config import fileConfig
 
 from fastapi import FastAPI

@@ -17,6 +17,6 @@ class Settings(BaseSettings):
     default_region: str | None = default_region
 
 
-@lru_cache()
+@lru_cache
 def get_settings() -> Settings:
     return Settings()
