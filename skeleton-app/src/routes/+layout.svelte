@@ -3,10 +3,10 @@
   import { onMount } from "svelte";
   import { Toast, Portal } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
-  import AudioToggle from "$lib/components/buttons/AudioToggle.svelte";
-  import { applyTheme } from "$lib/stores/theme";
-  import { toaster } from "$lib/utils/toaster";
+  import ThemeSwitchModal from "$lib/presentation/components/modals/ThemeSwitchModal.svelte";
+  import AudioToggle from "$lib/presentation/components/buttons/AudioToggle.svelte";
+  import { applyTheme } from "$lib/presentation/stores/theme";
+  import { toaster } from "$lib/presentation/utils/toaster";
 
   let { children } = $props();
 

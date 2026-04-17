@@ -1,6 +1,6 @@
 <script lang="ts">
-  import KeyboardInstrument from "$lib/components/organisms/KeyboardInstrument.svelte";
-  import MelodyMaker from "$lib/components/organisms/MelodyMaker.svelte";
+  import KeyboardInstrument from "$lib/presentation/components/organisms/KeyboardInstrument.svelte";
+  import MelodyMaker from "$lib/presentation/components/organisms/MelodyMaker.svelte";
 </script>
 
 <div class="flex flex-col items-center justify-center p-4 space-y-4">

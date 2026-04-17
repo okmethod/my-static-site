@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { audioContextProvider } from "$lib/stores/audio";
-  import { startBeep } from "$lib/utils/beep";
+  import { audioContextProvider } from "$lib/presentation/stores/audio";
+  import { startBeep } from "$lib/presentation/utils/beep";
 
   export let frequency: number;
   export let waveType: OscillatorType;

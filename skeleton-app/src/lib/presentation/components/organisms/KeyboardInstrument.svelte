@@ -1,8 +1,8 @@
 <script lang="ts">
   import { SegmentedControl } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import KeyboardInstrument from "$lib/components/organisms/KeyboardOneOctave.svelte";
-  import { waveTypes, labelTypes, type LabelType } from "$lib/utils/beep";
+  import KeyboardInstrument from "$lib/presentation/components/organisms/KeyboardOneOctave.svelte";
+  import { waveTypes, labelTypes, type LabelType } from "$lib/presentation/utils/beep";
 
   interface Props {
     numOfOctaves?: number;

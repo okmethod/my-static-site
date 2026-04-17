@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isImageConfig, isIconConfig, type TransitionButtonConfig } from "$lib/utils/transitions";
+  import { isImageConfig, isIconConfig, type TransitionButtonConfig } from "$lib/application/utils/transitions";
   import Icon from "@iconify/svelte";
 
   export let data: {

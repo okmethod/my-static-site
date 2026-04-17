@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dialog, Switch, Portal } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/stores/theme";
+  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/presentation/stores/theme";
 
   let openState = $state(false);
   let currentTheme = $state(getTheme());
