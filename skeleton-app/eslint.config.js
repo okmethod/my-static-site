@@ -20,7 +20,11 @@ export default ts.config(
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
     },
-    rules: { "no-undef": "off" },
+    rules: {
+      "no-undef": "off",
+      // goto() や <a href> の通常パターンで誤検知するため無効化
+      "svelte/no-navigation-without-resolve": "off",
+    },
   },
   {
     files: ["**/*.svelte", "**/*.svelte.ts", "**/*.svelte.js"],
