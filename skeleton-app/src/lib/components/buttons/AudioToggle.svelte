@@ -12,18 +12,19 @@
   }
 </script>
 
-<Switch
-  name="audioToggle"
-  controlClasses="h-8"
-  controlActive="bg-surface-950-50"
-  compact
-  checked={currentAudioOn}
-  onCheckedChange={() => toggleAudio()}
->
-  {#snippet activeChild()}
-    <Icon icon="mdi:volume-high" class="size-5 text-white" />
-  {/snippet}
-  {#snippet inactiveChild()}
-    <Icon icon="mdi:volume-off" class="size-5 text-white" />
-  {/snippet}
+<Switch name="audioToggle" checked={currentAudioOn} onCheckedChange={() => toggleAudio()}>
+  <Switch.Control class="h-8 bg-surface-950-50">
+    <Switch.Thumb>
+      <Switch.Context>
+        {#snippet children(switch_)}
+          {#if switch_().checked}
+            <Icon icon="mdi:volume-high" class="size-5 text-white" />
+          {:else}
+            <Icon icon="mdi:volume-off" class="size-5 text-white" />
+          {/if}
+        {/snippet}
+      </Switch.Context>
+    </Switch.Thumb>
+  </Switch.Control>
+  <Switch.HiddenInput />
 </Switch>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import { onMount } from "svelte";
-  import { Toaster } from "@skeletonlabs/skeleton-svelte";
+  import { Toast, Portal } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import ThemeSwitchModal from "$lib/components/modals/ThemeSwitchModal.svelte";
   import AudioToggle from "$lib/components/buttons/AudioToggle.svelte";
@@ -24,7 +24,18 @@
   <title>My Static WebSite</title>
 </svelte:head>
 
-<Toaster {toaster} rounded="rounded-lg" />
+<Portal>
+  <Toast.Group {toaster}>
+    {#snippet children(toast)}
+      <Toast {toast} class="card bg-surface-100-900 shadow-xl rounded-lg p-4">
+        <Toast.Message>
+          <Toast.Title>{toast.title}</Toast.Title>
+        </Toast.Message>
+        <Toast.CloseTrigger class="btn-icon hover:preset-tonal" />
+      </Toast>
+    {/snippet}
+  </Toast.Group>
+</Portal>
 
 {#if isLoaded}
   <header class="p-2 sm:p-4 shadow-md bg-surface-100-900">

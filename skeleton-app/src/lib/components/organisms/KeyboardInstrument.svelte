@@ -1,46 +1,59 @@
 <script lang="ts">
-  import { Segment } from "@skeletonlabs/skeleton-svelte";
+  import { SegmentedControl } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import KeyboardInstrument from "$lib/components/organisms/KeyboardOneOctave.svelte";
   import { waveTypes, labelTypes, type LabelType } from "$lib/utils/beep";
 
-  export let numOfOctaves: number = 1;
+  interface Props {
+    numOfOctaves?: number;
+  }
+  let { numOfOctaves = 1 }: Props = $props();
 
-  const octaveShifts = Array.from({ length: numOfOctaves }, (_, i) => i - Math.floor(numOfOctaves / 2));
+  const octaveShifts = $derived(Array.from({ length: numOfOctaves }, (_, i) => i - Math.floor(numOfOctaves / 2)));
 
-  let selectedWaveType: OscillatorType = "triangle";
-  let selectedLabelType: LabelType = "none";
+  let selectedWaveType: OscillatorType = $state("triangle");
+  let selectedLabelType: LabelType = $state("none");
 </script>
 
 <div class="flex flex-col items-center bg-primary-200 dark:bg-primary-800 rounded-lg shadow-lg space-y-4 p-4">
   <div class="flex space-x-4">
     <div class="flex items-center justify-center">
-      <Segment
+      <SegmentedControl
         name="waveType"
         value={selectedWaveType}
         onValueChange={(e) => (selectedWaveType = e.value as OscillatorType)}
-        classes="h-full space-x-1"
       >
-        {#each waveTypes as waveType, key (key)}
-          <Segment.Item value={waveType}>
-            <Icon icon="mdi:{waveType}-wave" class="size-4" />
-          </Segment.Item>
-        {/each}
-      </Segment>
+        <SegmentedControl.Control class="h-full space-x-1">
+          <SegmentedControl.Indicator />
+          {#each waveTypes as waveType, key (key)}
+            <SegmentedControl.Item value={waveType}>
+              <SegmentedControl.ItemHiddenInput />
+              <SegmentedControl.ItemText>
+                <Icon icon="mdi:{waveType}-wave" class="size-4" />
+              </SegmentedControl.ItemText>
+            </SegmentedControl.Item>
+          {/each}
+        </SegmentedControl.Control>
+      </SegmentedControl>
     </div>
     <div class="flex items-center justify-center">
-      <Segment
+      <SegmentedControl
         name="labelType"
         value={selectedLabelType}
         onValueChange={(e) => (selectedLabelType = e.value as LabelType)}
-        classes="h-full space-x-1"
       >
-        {#each labelTypes as labelType, key (key)}
-          <Segment.Item value={labelType}>
-            <span class="text-sm">{labelType}</span>
-          </Segment.Item>
-        {/each}
-      </Segment>
+        <SegmentedControl.Control class="h-full space-x-1">
+          <SegmentedControl.Indicator />
+          {#each labelTypes as labelType, key (key)}
+            <SegmentedControl.Item value={labelType}>
+              <SegmentedControl.ItemHiddenInput />
+              <SegmentedControl.ItemText>
+                <span class="text-sm">{labelType}</span>
+              </SegmentedControl.ItemText>
+            </SegmentedControl.Item>
+          {/each}
+        </SegmentedControl.Control>
+      </SegmentedControl>
     </div>
   </div>
   <div class="hidden sm:flex">

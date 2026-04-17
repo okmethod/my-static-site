@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Segment } from "@skeletonlabs/skeleton-svelte";
+  import { SegmentedControl } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import { waveTypes } from "$lib/utils/beep";
   import { sampleMelody, type MelodyNote } from "$lib/utils/melody";
@@ -22,18 +22,23 @@
 </script>
 
 <div class="flex flex-col items-center bg-primary-200 dark:bg-primary-800 rounded-lg shadow-lg space-y-4 p-4">
-  <Segment
+  <SegmentedControl
     name="waveType"
     value={selectedWaveType}
     onValueChange={(e) => (selectedWaveType = e.value as OscillatorType)}
-    classes="h-full space-x-1"
   >
-    {#each waveTypes as waveType, key (key)}
-      <Segment.Item value={waveType}>
-        <Icon icon="mdi:{waveType}-wave" class="size-4" />
-      </Segment.Item>
-    {/each}
-  </Segment>
+    <SegmentedControl.Control class="h-full space-x-1">
+      <SegmentedControl.Indicator />
+      {#each waveTypes as waveType, key (key)}
+        <SegmentedControl.Item value={waveType}>
+          <SegmentedControl.ItemHiddenInput />
+          <SegmentedControl.ItemText>
+            <Icon icon="mdi:{waveType}-wave" class="size-4" />
+          </SegmentedControl.ItemText>
+        </SegmentedControl.Item>
+      {/each}
+    </SegmentedControl.Control>
+  </SegmentedControl>
 
   <!-- メロディのリストを表示 -->
   <ul class="w-full space-y-2">
@@ -45,7 +50,7 @@
 
         <!-- 休符の切り替え -->
         <div class="col-span-1">
-          <button class="p-1 w-full bg-gray-300 dark:bg-gray-600 rounded" on:click={() => toggleRest(index)}>
+          <button class="p-1 w-full bg-gray-300 dark:bg-gray-600 rounded" onclick={() => toggleRest(index)}>
             <Icon icon="mdi:{note ? 'music-note-quarter' : 'music-rest-quarter'}" />
           </button>
         </div>
@@ -57,7 +62,7 @@
               type="text"
               class="p-1 border rounded dark:bg-gray-600 dark:text-gray-200"
               bind:value={note.name}
-              on:input={(e: Event) => updateNote(index, "name", (e.target as HTMLInputElement).value)}
+              oninput={(e: Event) => updateNote(index, "name", (e.target as HTMLInputElement).value)}
             />
 
             <!-- オクターブ -->
@@ -65,7 +70,7 @@
               type="number"
               class="p-1 border rounded dark:bg-gray-600 dark:text-gray-200"
               bind:value={note.octave}
-              on:input={(e: Event) => updateNote(index, "octave", parseInt((e.target as HTMLInputElement).value))}
+              oninput={(e: Event) => updateNote(index, "octave", parseInt((e.target as HTMLInputElement).value))}
             />
 
             <!-- 拍数 -->
@@ -73,7 +78,7 @@
               type="number"
               class="p-1 border rounded dark:bg-gray-600 dark:text-gray-200"
               bind:value={note.duration}
-              on:input={(e: Event) => updateNote(index, "duration", parseFloat((e.target as HTMLInputElement).value))}
+              oninput={(e: Event) => updateNote(index, "duration", parseFloat((e.target as HTMLInputElement).value))}
             />
           {:else}
             <!-- 休符の場合 -->
