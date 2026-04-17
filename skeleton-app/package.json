@@ -30,6 +30,9 @@
     "push": "gh-pages -t -d build",
     "deploy": "npm run build && npm run push"
   },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
   "devDependencies": {
     "@eslint/compat": "^1.4.1",
     "@eslint/js": "^9.39.4",
