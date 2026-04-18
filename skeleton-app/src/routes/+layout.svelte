@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import { onMount } from "svelte";
-  import { Toast, Portal } from "@skeletonlabs/skeleton-svelte";
+  import { Portal, Toast } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import ThemeSwitchModal from "$lib/presentation/components/modals/ThemeSwitchModal.svelte";
   import AudioToggle from "$lib/presentation/components/buttons/AudioToggle.svelte";
@@ -25,13 +25,15 @@
 </svelte:head>
 
 <Portal>
-  <Toast.Group {toaster}>
+  <Toast.Group {toaster} class="fixed top-4 right-4 flex flex-col gap-2 z-50">
     {#snippet children(toast)}
-      <Toast {toast} class="card bg-surface-100-900 shadow-xl rounded-lg p-4">
-        <Toast.Message>
-          <Toast.Title>{toast.title}</Toast.Title>
-        </Toast.Message>
-        <Toast.CloseTrigger class="btn-icon hover:preset-tonal" />
+      <Toast {toast} class="card p-4 rounded-lg w-64 md:w-96 shadow-lg">
+        <div class="flex items-center gap-2 w-full">
+          <Toast.Title class="flex-1">{toast.title}</Toast.Title>
+          <Toast.CloseTrigger class="btn-icon btn-icon-sm preset-tonal shrink-0 ml-auto">
+            <Icon icon="mdi:close" class="size-4" />
+          </Toast.CloseTrigger>
+        </div>
       </Toast>
     {/snippet}
   </Toast.Group>
@@ -59,7 +61,9 @@
       </div>
     </header>
 
-    <main class="flex-1 overflow-y-auto mx-auto w-full [scrollbar-width:thin] [scrollbar-color:rgba(0,0,0,0.25)_transparent]">
+    <main
+      class="flex-1 overflow-y-auto mx-auto w-full [scrollbar-width:thin] [scrollbar-color:rgba(0,0,0,0.25)_transparent]"
+    >
       {@render children()}
     </main>
   </div>
