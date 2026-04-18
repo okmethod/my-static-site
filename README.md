@@ -1,28 +1,73 @@
 # my-static-site
 
-`gh-pages` ブランチの静的アセットを Github Pages で公開する。
+> フロントエンド SPA + バックエンド API サーバーのテンプレート
 
-## ローカルでの起動方法
+## プロジェクト概要
 
-- コンテナ起動
+GitHub Pages へのデプロイを前提とした、Svelte × FastAPI の開発テンプレート。
 
-  ```sh
-  docker compose up
-  ```
+---
 
-- ブラウザでアクセス
+## アーキテクチャ
 
-  http://localhost:5173/
+```mermaid
+graph LR
+  subgraph Browser["ユーザー"]
+    SPA["SPA"]
+  end
 
-## インターネットへの公開方法
+  subgraph GHPages["GitHub Pages"]
+    Assets["SPAアセット"]
+  end
 
-- 静的アセットデプロイ
+  subgraph Server["サーバー"]
+    API["API サーバー"]
+  end
 
-  ```sh
-  (cd skeleton-app && npm run build)
-  (cd skeleton-app && npm run deploy)
-  ```
+  Assets -->|配信| SPA
+  SPA -->|REST API| API
+```
 
-- ブラウザでアクセス
+**技術スタック**:
 
-  https://okmethod.github.io/my-static-site/
+- **フロントエンド**: Skeleton v4 (Svelte v5 + TailwindCSS v4 + Vite v6)
+- **バックエンド**: Python 3.13 + FastAPI
+- **インフラ**: Docker Compose でワンコマンド起動
+
+TODO: バックエンドのホストとデプロイ検討
+
+---
+
+## ディレクトリ構成
+
+```
+my-static-site/
+├── skeleton-app/      # フロントエンド (Skeleton)
+├── fast-api-server/   # バックエンド (FastAPI)
+└── docs/              # ドキュメント
+```
+
+---
+
+## ローカル起動
+
+```bash
+docker compose up
+```
+
+---
+
+## デプロイ
+
+GitHub Pages への静的デプロイ:
+
+```bash
+cd skeleton-app
+npm run deploy
+```
+
+**公開 URL**: https://okmethod.github.io/my-static-site/
+
+---
+
+**メンテナー**: @okmethod
