@@ -13,8 +13,10 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=1.16.0",
     "poethepoet>=0.34.0",
+    "pytest>=8.3.5",
     "ruff>=0.11.13",
 ]
 
@@ -24,5 +26,6 @@ ruff-check = "ruff check ."
 ruff-fix = "ruff check . --fix"
 mypy = "mypy ."
 
+test = "pytest tests/"
 lint = ["ruff-format", "ruff-check", "mypy"]
 fix = ["ruff-format", "ruff-fix"]

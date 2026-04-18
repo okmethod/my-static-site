@@ -4,7 +4,7 @@ from logging.config import fileConfig
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.routes import heartbeat
+from src.routes import health
 from src.settings import get_settings
 
 fileConfig("src/logging.ini", disable_existing_loggers=False)
@@ -32,8 +32,9 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
+# Health Check API routers
 app.include_router(
-    heartbeat.router,
-    prefix="/api/heartbeat",
-    tags=["Root"],
+    health.router,
+    prefix="/api/health",
+    tags=["Health"],
 )
