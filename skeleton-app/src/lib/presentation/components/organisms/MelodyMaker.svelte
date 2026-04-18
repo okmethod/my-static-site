@@ -23,13 +23,13 @@
   }
 </script>
 
-<div class="flex flex-col items-center bg-primary-200 dark:bg-primary-800 rounded-lg shadow-lg space-y-4 p-4">
+{#snippet waveControl()}
   <SegmentedControl
     name="waveType"
     value={selectedWaveType}
     onValueChange={(e) => (selectedWaveType = e.value as OscillatorType)}
   >
-    <SegmentedControl.Control class="h-full space-x-1">
+    <SegmentedControl.Control class="flex flex-row h-10 space-x-1">
       <SegmentedControl.Indicator />
       {#each waveTypes as waveType, key (key)}
         <SegmentedControl.Item value={waveType}>
@@ -41,8 +41,9 @@
       {/each}
     </SegmentedControl.Control>
   </SegmentedControl>
+{/snippet}
 
-  <!-- メロディのリストを表示 -->
+{#snippet melodyList()}
   <ul class="w-full space-y-2">
     {#each editableMelody as note, index (index)}
       <li class="grid grid-cols-8 place-items-center gap-2 p-1 h-12 bg-white dark:bg-gray-700 rounded shadow">
@@ -90,6 +91,14 @@
       </li>
     {/each}
   </ul>
+{/snippet}
+
+<div class="flex flex-col items-center preset-tonal-primary rounded-lg shadow-lg space-y-4 p-4">
+  <div class="flex items-center justify-center">
+    {@render waveControl()}
+  </div>
+
+  {@render melodyList()}
 
   <MelodyButton
     waveType={selectedWaveType}
