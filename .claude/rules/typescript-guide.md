@@ -1,7 +1,6 @@
 ---
 description: TypeScript の開発規約・コマンド
-globs:
-  - "skeleton-app/src/**/*.ts"
+globs: "apps/skeleton-app/**/*.ts"
 ---
 
 # TypeScript

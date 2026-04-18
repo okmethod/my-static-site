@@ -9,13 +9,13 @@ services:
     environment:
       VITE_API_BASE_URL: "http://fast-api-server:8000"
     volumes:
-      - ./skeleton-app:/app
+      - ./apps/skeleton-app:/app
       - skeleton-app-node-modules:/app/node_modules
     command: /bin/sh -c "npm install && npm run dev"
   
   fast-api-server:
     build:
-      context: ./fast-api-server
+      context: ./apps/fast-api-server
       target: development
       args:
         PYTHON_VERSION: 3.13.2
@@ -24,7 +24,7 @@ services:
     environment:
       GOOGLE_CLOUD_PROJECT: emulator
     volumes:
-      - ./fast-api-server:/app
+      - ./apps/fast-api-server:/app
       - fast-api-server-venv:/app/.venv
     command:
       ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--log-config", "src/logging.ini", "--reload"]

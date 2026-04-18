@@ -1,7 +1,6 @@
 ---
 description: Svelte 5 の開発規約
-globs:
-  - "skeleton-app/src/**/*.svelte"
+globs: "apps/skeleton-app/**/*.svelte"
 ---
 
 # Svelte 5

@@ -7,10 +7,10 @@
 			"path": "docs"
 		},
 		{
-			"path": "skeleton-app"
+			"path": "apps/skeleton-app"
 		},
 		{
-			"path": "fast-api-server"
+			"path": "apps/fast-api-server"
 		},
 	],
 	"settings": {}

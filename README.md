@@ -42,9 +42,10 @@ TODO: バックエンドのホストとデプロイ検討
 
 ```
 my-static-site/
-├── skeleton-app/      # フロントエンド (Skeleton)
-├── fast-api-server/   # バックエンド (FastAPI)
-└── docs/              # ドキュメント
+├── apps/
+│   ├── skeleton-app/      # フロントエンド (Skeleton)
+│   └── fast-api-server/   # バックエンド (FastAPI)
+└── docs/                  # ドキュメント
 ```
 
 ---
@@ -62,7 +63,7 @@ docker compose up
 GitHub Pages への静的デプロイ:
 
 ```bash
-cd skeleton-app
+cd apps/skeleton-app
 npm run deploy
 ```
 

@@ -24,5 +24,5 @@
 
 ## ディレクトリ
 
-- `skeleton-app/`: Skeleton フロントエンド
-- `fast-api-server`: FastAPI サーバー
+- `apps/skeleton-app/`: Skeleton フロントエンド
+- `apps/fast-api-server/`: FastAPI サーバー
