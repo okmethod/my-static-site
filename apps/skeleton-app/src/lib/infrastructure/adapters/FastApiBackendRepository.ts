@@ -10,7 +10,7 @@
  */
 
 import { z } from "zod";
-import type { HealthStatus, IHealthRepository } from "$lib/application/ports/IHealthRepository";
+import type { HealthStatus, IBackendRepository } from "$lib/application/ports/IBackendRepository";
 import { constructRequestInit, fetchApi } from "$lib/infrastructure/utils/request";
 
 const pathHealth = "/api/heartbeat";
@@ -20,7 +20,7 @@ const HealthResponseSchema = z.object({
 });
 
 /** ヘルスチェック取得の具象実装 (FastAPI) */
-class FastApiHealthRepository implements IHealthRepository {
+class FastApiBackendRepository implements IBackendRepository {
   /** APIサーバーのヘルス状態を取得 */
   async checkHealth(fetchFunction: typeof fetch): Promise<HealthStatus> {
     const requestConfig = { ...constructRequestInit(), method: "GET" };
@@ -30,16 +30,16 @@ class FastApiHealthRepository implements IHealthRepository {
 }
 
 // Singleton インスタンス
-let repositoryInstance: IHealthRepository | null = null;
+let repositoryInstance: IBackendRepository | null = null;
 
 /**
  * Singleton getter
  *
  * アプリ層から利用する統一アクセスポイント。
  */
-export function getHealthRepository(): IHealthRepository {
+export function getBackendRepository(): IBackendRepository {
   if (!repositoryInstance) {
-    repositoryInstance = new FastApiHealthRepository();
+    repositoryInstance = new FastApiBackendRepository();
   }
   return repositoryInstance;
 }
