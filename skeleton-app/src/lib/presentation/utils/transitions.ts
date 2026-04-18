@@ -39,7 +39,10 @@ export function isIconConfig(symbol: ImageConfig | IconConfig | null): symbol is
 
 function getOnClick(content: TransitionContent): () => void {
   if (content.action === "navigate") return () => navigateTo(content.target);
-  if (content.action === "redirect") return () => { window.location.href = content.target; };
+  if (content.action === "redirect")
+    return () => {
+      window.location.href = content.target;
+    };
   return () => window.open(content.target, "_blank");
 }
 
