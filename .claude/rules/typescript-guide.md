@@ -20,7 +20,7 @@ globs: "apps/skeleton-app/**/*.ts"
 - 枝葉部分（個別実装・privateメソッド・メソッド内処理）は `//` コメントのみ（JSDocは書かない）
 - 未実装・負債は `// TODO:` / `// FIXME:` コメントで明示する
 
-## よく使うコマンド（skeleton-app/ 内）
+## よく使うコマンド（apps/skeleton-app/ 内）
 
 ```bash
 npm run lint          # prettier check + eslint
