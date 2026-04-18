@@ -1,6 +1,6 @@
 import type { TransitionContent, TransitionButtonConfig } from "$lib/application/utils/transitions";
 import { generateButtonConfigs } from "$lib/application/utils/transitions";
-import { GITHUB_REPO_URL } from "$lib/application/constants/common";
+import { GITHUB_REPO_URL } from "$lib/presentation/constants/common";
 
 const contentLinks: TransitionContent[] = [
   {
