@@ -50,10 +50,9 @@ interface Theme {
 }
 
 const defaultTheme: Theme = { name: themeLabels[0]["name"], dark: false };
-const savedTheme: Theme =
-  typeof localStorage !== "undefined"
-    ? JSON.parse(localStorage.getItem("theme") || JSON.stringify(defaultTheme))
-    : defaultTheme;
+const savedTheme: Theme = browser
+  ? JSON.parse(localStorage.getItem("theme") || JSON.stringify(defaultTheme))
+  : defaultTheme;
 
 /** 現在適用中のテーマ状態。localStorage の値で初期化される */
 export const themeStore = writable<Theme>(savedTheme);
