@@ -2,12 +2,15 @@
   import { SegmentedControl } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
   import KeyboardInstrument from "$lib/presentation/components/organisms/KeyboardOneOctave.svelte";
-  import { waveTypes, labelTypes, type LabelType } from "$lib/presentation/utils/beep";
+  import { WAVE_TYPES, LABEL_TYPES, type LabelType } from "$lib/presentation/sounds/beep";
 
   interface Props {
     numOfOctaves?: number;
   }
   let { numOfOctaves = 1 }: Props = $props();
+
+  const waveTypes = WAVE_TYPES;
+  const labelTypes = LABEL_TYPES;
 
   const octaveShifts = $derived(Array.from({ length: numOfOctaves }, (_, i) => i - Math.floor(numOfOctaves / 2)));
 

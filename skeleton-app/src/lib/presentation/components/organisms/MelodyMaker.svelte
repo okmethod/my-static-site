@@ -1,12 +1,14 @@
 <script lang="ts">
   import { SegmentedControl } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import { waveTypes } from "$lib/presentation/utils/beep";
-  import { sampleMelody, type MelodyNote } from "$lib/presentation/utils/melody";
+  import { WAVE_TYPES } from "$lib/presentation/sounds/beep";
+  import { sampleMelody, type MelodyNote } from "$lib/presentation/sounds/melody";
   import MelodyButton from "$lib/presentation/components/buttons/MelodyButton.svelte";
 
   let selectedWaveType: OscillatorType = "square";
   let editableMelody: (MelodyNote | null)[] = [...sampleMelody.melodyNotes];
+
+  const waveTypes = WAVE_TYPES;
 
   // 音符または休符を更新する関数
   function updateNote(index: number, field: "name" | "octave" | "duration", value: string | number) {
