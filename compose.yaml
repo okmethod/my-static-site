@@ -18,7 +18,7 @@ services:
       context: ./fast-api-server
       target: development
       args:
-        PYTHON_VERSION: 3.11.11
+        PYTHON_VERSION: 3.13.2
     ports:
       - 8000:8000
     environment:

@@ -20,7 +20,7 @@
 - **リポジトリ**: https://github.com/okmethod/my-static-site
 - **技術スタック**:
   - TypeScript 6, Skeleton v4 (Svelte v5 + TailwindCSS v4 + Vite v6)
-  - Python 3.11, FastAPI
+  - Python 3.13, FastAPI
 
 ## ディレクトリ
 
