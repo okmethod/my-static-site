@@ -17,7 +17,13 @@
   <div class="space-y-4 my-4">
     {#each data.buttonConfigs as config, key (key)}
       <div>
-        <button onclick={(e) => { e.preventDefault(); config.onClick(); }} class="flex items-center space-x-2">
+        <button
+          onclick={(e) => {
+            e.preventDefault();
+            config.onClick();
+          }}
+          class="flex items-center space-x-2"
+        >
           <div class="w-6 h-6">
             {#if config.symbol === null}
               <!-- no symbol -->

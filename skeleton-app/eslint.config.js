@@ -25,7 +25,7 @@ export default ts.config(
       // goto() や <a href> の通常パターンで誤検知するため無効化
       "svelte/no-navigation-without-resolve": "off",
       // アンダーバー始まりの変数は未使用を許容する
-      "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
     },
   },
   {
