@@ -1,14 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
-  import checkHeartbeat from "$lib/infrastructure/api/checkHeartbeat";
+  import { getHealthRepository } from "$lib/infrastructure/adapters/FastApiHealthRepository";
 
   let authorized = false;
 
   async function checkAuth(fetch: typeof window.fetch): Promise<boolean> {
     try {
-      const message = await checkHeartbeat(fetch);
-      console.log("Internal API health check:", message);
+      const health = await getHealthRepository().checkHealth(fetch);
+      console.log("Internal API health check:", health.message);
     } catch (error) {
       console.error("Internal API health check failed:", error);
       return true;
