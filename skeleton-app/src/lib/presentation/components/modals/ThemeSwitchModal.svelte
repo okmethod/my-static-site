@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dialog, Switch, Portal } from "@skeletonlabs/skeleton-svelte";
   import Icon from "@iconify/svelte";
-  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/presentation/stores/theme";
+  import { themeLabels, getTheme, setTheme, applyTheme } from "$lib/presentation/stores/themeStore";
 
   let openState = $state(false);
   let currentTheme = $state(getTheme());
@@ -17,16 +17,19 @@
     currentTheme = getTheme();
     applyTheme();
   }
+
+  function modalClose() {
+    openState = false;
+  }
 </script>
 
-<Dialog open={openState} onOpenChange={(e: { open: boolean }) => (openState = e.open)}>
-  <Dialog.Trigger class="btn preset-filled">
+<Dialog open={openState} onOpenChange={(e) => (openState = e.open)}>
+  <Dialog.Trigger class="btn p-2 rounded-xl h-10 w-10 preset-filled">
     <Icon icon="mdi:shimmer" class="size-4" />
-    <span>Theme</span>
   </Dialog.Trigger>
   <Portal>
-    <Dialog.Backdrop class="backdrop-blur-sm" />
-    <Dialog.Positioner class="flex items-center justify-center">
+    <Dialog.Backdrop class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
+    <Dialog.Positioner class="fixed inset-0 flex items-center justify-center z-50">
       <Dialog.Content class="card bg-surface-100-900 p-4 mx-auto space-y-4 shadow-xl max-w-80 sm:max-w-screen-sm">
         <header class="flex justify-between">
           <h2 class="text-2xl sm:text-3xl w-64 sm:w-80">Switch Theme</h2>
@@ -46,9 +49,9 @@
             </Switch.Control>
             <Switch.HiddenInput />
           </Switch>
-          <Dialog.CloseTrigger class="btn preset-tonal rounded-full">
+          <button type="button" class="btn preset-tonal rounded-full" onclick={modalClose}>
             <Icon icon="mdi:close" class="size-4" />
-          </Dialog.CloseTrigger>
+          </button>
         </header>
         <div class="flex flex-col space-y-4">
           <ul class="grid grid-cols-4 gap-4">
