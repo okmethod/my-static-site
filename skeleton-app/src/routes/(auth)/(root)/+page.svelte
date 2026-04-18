@@ -2,9 +2,13 @@
   import { isImageConfig, isIconConfig, type TransitionButtonConfig } from "$lib/presentation/utils/transitions";
   import Icon from "@iconify/svelte";
 
-  export let data: {
-    buttonConfigs: Array<TransitionButtonConfig>;
-  };
+  interface PageProps {
+    data: {
+      buttonConfigs: Array<TransitionButtonConfig>;
+    };
+  }
+
+  let { data }: PageProps = $props();
 </script>
 
 <div class="flex flex-col items-center justify-center p-4">
@@ -12,8 +16,8 @@
 
   <div class="space-y-4 my-4">
     {#each data.buttonConfigs as config, key (key)}
-      <div class="">
-        <button on:click|preventDefault={config.onClick} class="flex items-center space-x-2">
+      <div>
+        <button onclick={(e) => { e.preventDefault(); config.onClick(); }} class="flex items-center space-x-2">
           <div class="w-6 h-6">
             {#if config.symbol === null}
               <!-- no symbol -->

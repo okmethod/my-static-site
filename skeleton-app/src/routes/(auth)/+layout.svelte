@@ -3,7 +3,9 @@
   import { browser } from "$app/environment";
   import { getHealthRepository } from "$lib/infrastructure/adapters/FastApiHealthRepository";
 
-  let authorized = false;
+  let { children } = $props();
+
+  let authorized = $state(false);
 
   async function checkAuth(fetch: typeof window.fetch): Promise<boolean> {
     try {
@@ -28,11 +30,9 @@
 </script>
 
 {#if authorized}
-  <slot />
+  {@render children()}
 {:else}
-  <div class="container mx-auto flex h-full items-center justify-center">
-    <div class="space-y-5 p-8">
-      <h1 class="h1">Now Loading...</h1>
-    </div>
+  <div class="fixed inset-0 flex items-center justify-center">
+    <div class="font-mono text-3xl">Now Loading...</div>
   </div>
 {/if}

@@ -38,31 +38,33 @@
 </Portal>
 
 {#if isLoaded}
-  <header class="p-2 sm:p-4 shadow-md bg-surface-100-900">
-    <div class="flex justify-between items-center">
-      <a class="h5 flex items-center" href="./">
-        <span class="hidden sm:inline">My Static WebSite</span>
-        <Icon icon="mdi:home" class="size-6 sm:hidden" />
-      </a>
+  <div class="h-screen flex flex-col">
+    <header class="shrink-0 p-2 sm:p-4 shadow-md bg-surface-100-900">
+      <div class="flex justify-between items-center">
+        <a class="h5 flex items-center" href="./">
+          <span class="hidden sm:inline">My Static WebSite</span>
+          <Icon icon="mdi:home" class="size-6 sm:hidden" />
+        </a>
 
-      <nav>
-        <ul class="flex space-x-4 items-center justify-center">
-          <li>
-            <AudioToggle />
-          </li>
-          <li>
-            <ThemeSwitchModal />
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+        <nav>
+          <ul class="flex space-x-4 items-center justify-center">
+            <li>
+              <AudioToggle />
+            </li>
+            <li>
+              <ThemeSwitchModal />
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-  <main class="mx-auto">
-    {@render children()}
-  </main>
+    <main class="flex-1 overflow-y-auto mx-auto w-full [scrollbar-width:thin] [scrollbar-color:rgba(0,0,0,0.25)_transparent]">
+      {@render children()}
+    </main>
+  </div>
 {:else}
-  <div class="h-screen flex items-center justify-center bg-gray-100">
-    <div class="font-mono text-black text-[32px]">Now Loading...</div>
+  <div class="h-screen flex items-center justify-center">
+    <div class="font-mono text-3xl">Now Loading...</div>
   </div>
 {/if}

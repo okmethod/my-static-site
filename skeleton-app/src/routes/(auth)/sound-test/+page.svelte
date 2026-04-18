@@ -58,7 +58,7 @@
         </span>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
-        <div class="grid grid-cols-1 grid-cols-3 gap-4 max-w-4xl mx-auto">
+        <div class="grid grid-cols-3 gap-4 max-w-4xl mx-auto">
           {#each appSoundEffects as { name, description, play } (name)}
             <button
               class="btn preset-tonal-primary rounded-lg shadow p-4 flex flex-col items-start text-left"
