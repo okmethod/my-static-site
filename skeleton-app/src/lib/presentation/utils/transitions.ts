@@ -1,16 +1,14 @@
-import { navigateTo } from "$lib/application/utils/navigation";
+import { navigateTo, type AppPathname } from "$lib/presentation/utils/navigation";
 
-type TransitionAction = "navigate" | "redirect" | "redirectNewTab";
+type SymbolSrc = {
+  type: "image" | "icon";
+  key: string;
+};
 
-export interface TransitionContent {
-  label: string;
-  symbolSrc?: {
-    type: "image" | "icon";
-    key: string;
-  };
-  action: TransitionAction;
-  target: string;
-}
+// action の種別によって target の型を絞り込む discriminated union
+export type TransitionContent =
+  | { label: string; symbolSrc?: SymbolSrc; action: "navigate"; target: AppPathname }
+  | { label: string; symbolSrc?: SymbolSrc; action: "redirect" | "redirectNewTab"; target: string };
 
 interface ImageConfig {
   src: string;
@@ -39,15 +37,10 @@ export function isIconConfig(symbol: ImageConfig | IconConfig | null): symbol is
   return iconConfig.icon !== undefined;
 }
 
-function getOnClick(action: TransitionAction, target: string): () => void {
-  const actions: { [key in TransitionAction]: () => void } = {
-    navigate: () => navigateTo(target),
-    redirect: () => {
-      window.location.href = target;
-    },
-    redirectNewTab: () => window.open(target, "_blank"),
-  };
-  return actions[action] || (() => {});
+function getOnClick(content: TransitionContent): () => void {
+  if (content.action === "navigate") return () => navigateTo(content.target);
+  if (content.action === "redirect") return () => { window.location.href = content.target; };
+  return () => window.open(content.target, "_blank");
 }
 
 export function generateButtonConfigs(
@@ -67,6 +60,6 @@ export function generateButtonConfigs(
               icon: content.symbolSrc.key,
             }
         : null,
-    onClick: getOnClick(content.action, content.target),
+    onClick: getOnClick(content),
   }));
 }
