@@ -14,7 +14,7 @@
 <div class="flex flex-col items-center justify-center p-4">
   <h2 class="h3 sm:h2">Welcome to My Static Site !</h2>
 
-  <div class="space-y-4 my-4">
+  <div class="my-4 space-y-4">
     {#each data.buttonConfigs as config, key (key)}
       <div>
         <button
@@ -24,16 +24,16 @@
           }}
           class="flex items-center space-x-2"
         >
-          <div class="w-6 h-6">
+          <div class="h-6 w-6">
             {#if config.symbol === null}
               <!-- no symbol -->
             {:else if isImageConfig(config.symbol)}
-              <img src={config.symbol.src} alt={config.symbol.alt} class="w-full h-full" />
+              <img src={config.symbol.src} alt={config.symbol.alt} class="h-full w-full" />
             {:else if isIconConfig(config.symbol)}
-              <Icon icon={config.symbol.icon} class="w-full h-full" />
+              <Icon icon={config.symbol.icon} class="h-full w-full" />
             {/if}
           </div>
-          <span class="hover:underline text-lg md:text-2xl">{config.label}</span>
+          <span class="text-lg hover:underline md:text-2xl">{config.label}</span>
         </button>
       </div>
     {/each}

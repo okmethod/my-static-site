@@ -25,12 +25,12 @@
 </svelte:head>
 
 <Portal>
-  <Toast.Group {toaster} class="fixed top-4 right-4 flex flex-col gap-2 z-50">
+  <Toast.Group {toaster} class="fixed top-4 right-4 z-50 flex flex-col gap-2">
     {#snippet children(toast)}
-      <Toast {toast} class="card p-4 rounded-lg w-64 md:w-96 shadow-lg">
-        <div class="flex items-center gap-2 w-full">
+      <Toast {toast} class="card w-64 rounded-lg p-4 shadow-lg md:w-96">
+        <div class="flex w-full items-center gap-2">
           <Toast.Title class="flex-1">{toast.title}</Toast.Title>
-          <Toast.CloseTrigger class="btn-icon btn-icon-sm preset-tonal shrink-0 ml-auto">
+          <Toast.CloseTrigger class="btn-icon btn-icon-sm preset-tonal ml-auto shrink-0">
             <Icon icon="mdi:close" class="size-4" />
           </Toast.CloseTrigger>
         </div>
@@ -40,16 +40,16 @@
 </Portal>
 
 {#if isLoaded}
-  <div class="h-screen flex flex-col">
-    <header class="shrink-0 p-2 sm:p-4 shadow-md bg-surface-100-900">
-      <div class="flex justify-between items-center">
+  <div class="flex h-screen flex-col">
+    <header class="bg-surface-100-900 shrink-0 p-2 shadow-md sm:p-4">
+      <div class="flex items-center justify-between">
         <a class="h5 flex items-center" href="./">
           <span class="hidden sm:inline">My Static WebSite</span>
           <Icon icon="mdi:home" class="size-6 sm:hidden" />
         </a>
 
         <nav>
-          <ul class="flex space-x-4 items-center justify-center">
+          <ul class="flex items-center justify-center space-x-4">
             <li>
               <AudioToggle />
             </li>
@@ -62,13 +62,13 @@
     </header>
 
     <main
-      class="flex-1 overflow-y-auto mx-auto w-full [scrollbar-width:thin] [scrollbar-color:rgba(0,0,0,0.25)_transparent]"
+      class="mx-auto w-full flex-1 overflow-y-auto [scrollbar-color:rgba(0,0,0,0.25)_transparent] [scrollbar-width:thin]"
     >
       {@render children()}
     </main>
   </div>
 {:else}
-  <div class="h-screen flex items-center justify-center">
+  <div class="flex h-screen items-center justify-center">
     <div class="font-mono text-3xl">Now Loading...</div>
   </div>
 {/if}
